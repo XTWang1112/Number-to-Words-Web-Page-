@@ -1,3 +1,4 @@
 <Solution>
-  <Project Path="NumberToWordsWebPage/src.csproj" />
+  <Project Path="NumberToWordsWebPage.Tests/NumberToWordsWebPage.Tests.csproj" Id="c23adb85-b93e-4bc9-8f65-8e6a2d780ac3" />
+  <Project Path="NumberToWordsWebPage/NumberToWordsWebPage.csproj" />
 </Solution>
