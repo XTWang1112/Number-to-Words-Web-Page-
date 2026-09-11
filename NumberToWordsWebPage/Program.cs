@@ -9,7 +9,14 @@ builder.Services.AddSingleton<CurrencyToWordsConverter>();
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    // HTTPS is terminated by the hosting platform.
+}
+else
+{
+    app.UseHttpsRedirection();
+}
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.MapControllers();
