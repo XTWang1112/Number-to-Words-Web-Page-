@@ -2,9 +2,9 @@
 
 namespace NumberToWords.Tests;
 
-public class CurrencyToWordsConverterTests
+public class NumberToWordsConverterTests
 {
-    private readonly CurrencyToWordsConverter _converter = new();
+    private readonly NumberToWordsConverter _converter = new();
 
     [Theory]
     [InlineData(0, "ZERO DOLLARS")]

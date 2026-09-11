@@ -2,7 +2,7 @@
 
 namespace NumberToWordsWebPage.Services;
 
-public class CurrencyToWordsConverter
+public class NumberToWordsConverter
 {
     private const decimal MaxValue = 999999999.99m;
     private static readonly string[] Numbers = { "ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "ELEVEN", "TWELVE", "THIRTEEN", "FOURTEEN", "FIFTEEN", "SIXTEEN", "SEVENTEEN", "EIGHTEEN", "NINETEEN" };

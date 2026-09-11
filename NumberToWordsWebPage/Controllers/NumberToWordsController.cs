@@ -9,9 +9,9 @@ namespace NumberToWordsWebPage.Controllers;
 [Route("api/number-to-words")]
 public sealed class  NumberToWordsController : ControllerBase
 {
-    private readonly CurrencyToWordsConverter _converter;
+    private readonly NumberToWordsConverter _converter;
 
-    public NumberToWordsController(CurrencyToWordsConverter converter)
+    public NumberToWordsController(NumberToWordsConverter converter)
     {
         _converter = converter;
     }

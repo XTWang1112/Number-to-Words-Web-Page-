@@ -5,7 +5,7 @@ using NumberToWordsWebPage.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<CurrencyToWordsConverter>();
+builder.Services.AddSingleton<NumberToWordsConverter>();
 
 var app = builder.Build();
 
