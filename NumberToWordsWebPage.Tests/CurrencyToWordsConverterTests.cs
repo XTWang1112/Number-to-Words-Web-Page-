@@ -88,7 +88,7 @@ public class CurrencyToWordsConverterTests
     {
         var action = () => _converter.Convert(-0.01m);
 
-        Assert.Throws<ArgumentOutOfRangeException>(action);
+        Assert.Throws<CurrencyToWordsException>(action);
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public class CurrencyToWordsConverterTests
     {
         var action = () => _converter.Convert(1_000_000_000m);
 
-        Assert.Throws<ArgumentOutOfRangeException>(action);
+        Assert.Throws<CurrencyToWordsException>(action);
     }
 
     [Fact]
