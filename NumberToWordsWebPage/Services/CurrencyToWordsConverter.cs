@@ -1,4 +1,6 @@
-﻿namespace NumberToWordsWebPage.Services;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace NumberToWordsWebPage.Services;
 
 public class CurrencyToWordsConverter
 {
@@ -117,7 +119,14 @@ public class CurrencyToWordsConverter
     {
         if (amount < 0 || amount > MaxValue)
         {
-            throw new ArgumentOutOfRangeException(nameof(amount), $"Amount must be between 0 and {MaxValue}.");
+            throw new CurrencyToWordsException($"Amount must be between 0 and {MaxValue}.");
+        }
+
+        var decimalPlaces = BitConverter.GetBytes(decimal.GetBits(amount)[3])[2];
+
+        if (decimalPlaces > 2)
+        {
+            throw new CurrencyToWordsException("Amount must have at most two decimal places.");
         }
     }
 }
