@@ -12,3 +12,11 @@ The folloing assumptions have therefore been made.
 
 * `POST` is used instead of GET because I prefer to pass input to request  body instead of exposing it to the url. This will make the url clean and prevents the normal UI workflow from being modified by editing the address bar. And using `POST`can also make request body extensible.
 * The frontend contains minimal client-side business logic. Core conversion rules are covered by unit tests and the HTTP contract is covered by API integration tests. The user interface is verified through targeted browser-based functional and accessibility testing. End-to-end automation may be added where the UI grows in complexity.
+
+## Deployment
+
+The application is containerised and deployed to Railway.
+
+Railway was selected because it provides lightweight GitHub-integrated deployment with minimal infrastructure overhead.
+
+The application is packaged as a standard ASP.NET Core Docker image, so it is not tightly coupled to Railway and could be migrated to a container-based hosting platform such as Azure if production requirements changed.
