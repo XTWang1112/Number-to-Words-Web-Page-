@@ -10,6 +10,8 @@ builder.Services.AddSingleton<CurrencyToWordsConverter>();
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();

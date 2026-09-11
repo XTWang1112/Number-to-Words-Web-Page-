@@ -11,3 +11,4 @@ The folloing assumptions have therefore been made.
 ## Decision Made
 
 * `POST` is used instead of GET because I prefer to pass input to request  body instead of exposing it to the url. This will make the url clean and prevents the normal UI workflow from being modified by editing the address bar. And using `POST`can also make request body extensible.
+* The frontend contains minimal client-side business logic. Core conversion rules are covered by unit tests and the HTTP contract is covered by API integration tests. The user interface is verified through targeted browser-based functional and accessibility testing. End-to-end automation may be added where the UI grows in complexity.
