@@ -5,6 +5,8 @@ const amountInput = document.getElementById("amount");
 const resultText = document.getElementById("result");
 const resultSection = document.getElementById("result-section");
 const button = document.getElementById("convert-button");
+const copyButton = document.getElementById("copy-button");
+const copyStatus = document.getElementById("copy-status");
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -49,6 +51,32 @@ form.addEventListener("submit", async (event) => {
     }
 })
 
+copyButton.addEventListener("click", async () => {
+    const result = resultText.textContent.trim();
+
+    if (!result) {
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(result);
+
+        copyButton.textContent = "Copied!";
+        copyStatus.textContent = "Result copied to clipboard.";
+
+        setTimeout(() => {
+            copyButton.textContent = "Copy";
+            copyStatus.textContent = "";
+        }, 2000);
+    }
+    catch (error) {
+        console.error("Unable to copy result:", error);
+
+        copyStatus.textContent =
+            "Unable to copy the result. Please copy it manually.";
+    }
+});
+
 function resetError() {
     errorMessage.textContent = '';
     errorMessage.hidden = true;
@@ -59,6 +87,8 @@ function resetError() {
 function resetResult() {
     resultText.textContent = "";
     resultSection.hidden = true;
+    copyStatus.textContent = "";
+    copyButton.textContent = "Copy";
 }
 
 function displayError(message) {
@@ -72,6 +102,8 @@ function displayError(message) {
 function displayWords(words){
     resultText.textContent = words;
     resultSection.hidden = false;
+    copyButton.textContent = "Copy";
+    copyStatus.textContent = "";
 }
 
 function setLoading(isLoading) {

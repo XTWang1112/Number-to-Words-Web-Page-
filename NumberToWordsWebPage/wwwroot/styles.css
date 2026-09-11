@@ -168,6 +168,55 @@ button:disabled {
     overflow-wrap: anywhere;
 }
 
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    margin-bottom: 10px;
+}
+
+.result-header h2 {
+    margin: 0;
+
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    color: #697383;
+
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.copy-button {
+    width: auto;
+
+    padding: 7px 12px;
+
+    background: transparent;
+    color: #2457c5;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+
+    font-size: 0.875rem;
+}
+
+.copy-button:hover {
+    background: #f5f7fa;
+}
+
+.copy-status {
+    min-height: 1.25rem;
+
+    margin: 8px 0 0;
+
+    font-size: 0.875rem;
+    color: #5d6675;
+}
+
 @media (max-width: 600px) {
     .page-container {
         align-items: flex-start;

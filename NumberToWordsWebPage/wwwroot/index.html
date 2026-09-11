@@ -25,9 +25,13 @@
                 </div>
                 <button id="convert-button" type="submit">Convert</button>
             </form>
-            <section id="result-section" class="result-section" aria-live="polite">
-                <h2>Result</h2>
+            <section id="result-section" class="result-section" aria-labelledby="result-heading" aria-live="polite" hidden>
+                <div class="result-header">
+                    <h2>Result</h2>
+                    <button id="copy-button" class="copy-button" type="button" aria-label="Copy result to clipboard">Copy</button>
+                </div>
                 <p id="result" class="result-text"></p>
+                <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
             </section>
         </section>
     </main>
