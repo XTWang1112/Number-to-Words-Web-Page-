@@ -5,7 +5,7 @@ using NumberToWordsWebPage.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<NumberToWordsConverter>();
+builder.Services.AddSingleton<INumberToWordsConverter, NumberToWordsConverter>();
 
 var app = builder.Build();
 

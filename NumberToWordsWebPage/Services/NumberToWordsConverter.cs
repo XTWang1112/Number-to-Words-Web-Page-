@@ -2,7 +2,7 @@
 
 namespace NumberToWordsWebPage.Services;
 
-public class NumberToWordsConverter
+public class NumberToWordsConverter : INumberToWordsConverter
 {
     private const decimal MaxValue = 999999999.99m;
     private static readonly string[] Numbers = { "ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "ELEVEN", "TWELVE", "THIRTEEN", "FOURTEEN", "FIFTEEN", "SIXTEEN", "SEVENTEEN", "EIGHTEEN", "NINETEEN" };
@@ -119,14 +119,14 @@ public class NumberToWordsConverter
     {
         if (amount < 0 || amount > MaxValue)
         {
-            throw new CurrencyToWordsException($"Amount must be between 0 and {MaxValue}.");
+            throw new NumberToWordsException($"Amount must be between 0 and {MaxValue}.");
         }
 
         var decimalPlaces = BitConverter.GetBytes(decimal.GetBits(amount)[3])[2];
 
         if (decimalPlaces > 2)
         {
-            throw new CurrencyToWordsException("Amount must have at most two decimal places.");
+            throw new NumberToWordsException("Amount must have at most two decimal places.");
         }
     }
 }
