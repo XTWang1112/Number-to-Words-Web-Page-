@@ -14,12 +14,12 @@ The purpose of testing is to verify that the application:
 
 Testing covers three areas:
 
-1. Currency conversion logic
+1. Number conversion logic
 2. HTTP API behaviour
 
 ## 3. Unit Testing
 
-Unit tests focus on the `CurrencyToWordsConverter`.
+Unit tests focus on the `NumberToWordsConverter`.
 
 Test cases are concentrated around algorithmic and domain boundaries rather than arbitrary representative values.
 
@@ -91,7 +91,6 @@ GitHub Actions automatically performs:
 3. automated test execution
 
 The CI workflow runs on pushes targeting `main`.
-
 
 ## 6. Continuous Deployment
 
