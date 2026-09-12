@@ -2,14 +2,16 @@
 using NumberToWordsWebPage.Models;
 using System.Net.Http.Json;
 using System.Net;
+using System.Text;
+using Microsoft.AspNetCore.Hosting;
 
 namespace NumberToWordsWebPage.Tests;
 
-public sealed class NumberToWordsApiTests : IClassFixture<WebApplicationFactory<Program>>
+public sealed class NumberToWordsApiTests : IClassFixture<NumberToWordsWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
-    public NumberToWordsApiTests(WebApplicationFactory<Program> factory)
+    public NumberToWordsApiTests(NumberToWordsWebApplicationFactory factory)
     {
         _client = factory.CreateClient(
             new WebApplicationFactoryClientOptions
@@ -37,7 +39,7 @@ public sealed class NumberToWordsApiTests : IClassFixture<WebApplicationFactory<
         var error = await response.Content.ReadFromJsonAsync<ErrorResponse>();
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        Assert.Equal("The 'Value' field is required.", error?.Error);
+        Assert.Equal("The 'value' field is required.", error?.Error);
     }
 
     [Fact]
@@ -48,7 +50,7 @@ public sealed class NumberToWordsApiTests : IClassFixture<WebApplicationFactory<
         var error = await response.Content.ReadFromJsonAsync<ErrorResponse>();
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        Assert.Equal("The 'Value' field must be a valid decimal number.", error?.Error);
+        Assert.Equal("The 'value' field must be a non-negative decimal using a period as the decimal separator.", error?.Error);
     }
 
     [Fact]
@@ -70,7 +72,7 @@ public sealed class NumberToWordsApiTests : IClassFixture<WebApplicationFactory<
         var error = await response.Content.ReadFromJsonAsync<ErrorResponse>();
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        Assert.Equal("Amount must be between 0 and 999999999.99.", error?.Error);
+        Assert.Equal("The 'value' field must be a non-negative decimal using a period as the decimal separator.", error?.Error);
     }
 
     [Fact]
@@ -83,6 +85,34 @@ public sealed class NumberToWordsApiTests : IClassFixture<WebApplicationFactory<
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         Assert.Equal("Amount must be between 0 and 999999999.99.", error?.Error);
     }
+    [Theory]
+    [InlineData("1,2")]
+    [InlineData("+1")]
+    public async Task RejectsAmbiguousOrUnsupportedNumberFormats(string value)
+    {
+        var response = await _client.PostAsJsonAsync("/api/number-to-words", new NumberToWordsRequest(value));
+        var error = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("The 'value' field must be a non-negative decimal using a period as the decimal separator.", error?.Error);
+    }
+
+    [Fact]
+    public async Task MalformedJsonUsesTheStandardErrorContract()
+    {
+        using var content = new StringContent("{", Encoding.UTF8, "application/json");
+        var response = await _client.PostAsync("/api/number-to-words", content);
+        var error = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("The request body must contain a valid 'value' field.", error?.Error);
+    }
 }
 
-// mock???
+public sealed class NumberToWordsWebApplicationFactory : WebApplicationFactory<Program>
+{
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.UseEnvironment("Testing");
+    }
+}

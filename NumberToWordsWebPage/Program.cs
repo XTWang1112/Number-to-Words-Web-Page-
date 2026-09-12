@@ -4,7 +4,12 @@ using NumberToWordsWebPage.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = _ =>
+            new BadRequestObjectResult(new ErrorResponse("The request body must contain a valid 'value' field."));
+    });
 builder.Services.AddSingleton<INumberToWordsConverter, NumberToWordsConverter>();
 
 var app = builder.Build();
